@@ -1,4 +1,4 @@
-// Chaque fichier de la section `tests/` est compilé comme un exécutable de test distinct.
+// tests/consensus_tests.rs
 use nyxou_lib::consensus::pos::start_pos;
 use nyxou_lib::consensus::quantum_security::apply_quantum_security;
 

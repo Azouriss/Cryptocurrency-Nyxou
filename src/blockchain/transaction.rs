@@ -1,7 +1,7 @@
 // blockchain/transaction.rs
 use pqcrypto_dilithium::dilithium2::{PublicKey, SignedMessage};
-use pqcrypto_traits::sign::PublicKey as _; // pour pouvoir utiliser as_bytes() sur PublicKey
-use pqcrypto_traits::sign::SignedMessage as _; // pour pouvoir utiliser as_bytes() sur SignedMessage
+use pqcrypto_traits::sign::PublicKey as _;
+use pqcrypto_traits::sign::SignedMessage as _;
 use std::fmt;
 
 #[derive(Clone)]
@@ -30,7 +30,6 @@ impl Transaction {
         // Stocker la signature et la clé publique dans la transaction
         self.signature = Some(signed_msg);
         self.public_key = Some(public_key.clone());
-        // clone() car PublicKey n'implémente pas forcément Copy
     }
 
     // Vérifie la signature
@@ -55,9 +54,7 @@ impl Transaction {
 // Implémentation manuelle du Debug
 impl fmt::Debug for Transaction {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        // On peut afficher un résumé de la clé ou un placeholder
         let pk_str = if let Some(ref pk) = self.public_key {
-            // as_bytes() est maintenant disponible grâce à l'import du trait
             format!("PublicKey ({} bytes)", pk.as_bytes().len())
         } else {
             "None".to_string()

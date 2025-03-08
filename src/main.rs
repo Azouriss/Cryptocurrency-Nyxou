@@ -1,3 +1,4 @@
+// src/main.rs
 mod blockchain;
 mod consensus;
 mod network;
@@ -53,7 +54,7 @@ fn main() {
         prev_hash,
         0,
     );
-    
+
     my_blockchain.add_block(new_block);
 
     // Exemple d'utilisation des autres modules
