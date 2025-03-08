@@ -1,32 +1,59 @@
+mod blockchain;
 mod consensus;
-mod network; 
-mod blockchain; 
+mod network;
 
 use crate::blockchain::block::Block;
 use crate::blockchain::blockchain::Blockchain;
 use crate::blockchain::transaction::Transaction;
 
+use pqcrypto_dilithium::dilithium2;
+
 fn main() {
     // Initialiser la blockchain
     let mut my_blockchain = Blockchain::new();
 
-    // Exemple de transactions
-    let tx1 = Transaction {
-        from: String::from("Alice"),
-        to: String::from("Bob"),
+    // Génération d'une paire de clés PQ
+    let (public_key, secret_key) = dilithium2::keypair();
+
+    // Exemple de transaction signée
+    let mut tx1 = Transaction {
+        from: "Alice".to_string(),
+        to: "Bob".to_string(),
         amount: 50,
+        public_key: None,
+        signature: None,
     };
+
+    // On signe cette transaction
+    tx1.sign_transaction(&secret_key, &public_key);
+
+    // Vérification (optionnelle ici)
+    if tx1.verify_transaction() {
+        println!("Transaction 1 signée et valide !");
+    } else {
+        println!("Transaction 1 invalide !");
+    }
 
     let tx2 = Transaction {
-        from: String::from("Bob"),
-        to: String::from("Charlie"),
+        from: "Bob".to_string(),
+        to: "Charlie".to_string(),
         amount: 30,
+        public_key: None,
+        signature: None,
     };
 
-    // Création d'un bloc
-    let new_block = Block::new(1, 1234567890, vec![tx1, tx2], String::new(), 0);
+    // Récupère le hash du bloc précédent
+    let prev_hash = my_blockchain.chain.last().unwrap().hash.clone();
 
-    // Ajout du bloc dans la blockchain
+    // On crée le nouveau bloc
+    let new_block = Block::new(
+        my_blockchain.chain.len() as u64,
+        1234567890,
+        vec![tx1, tx2],
+        prev_hash,
+        0,
+    );
+    
     my_blockchain.add_block(new_block);
 
     // Exemple d'utilisation des autres modules
