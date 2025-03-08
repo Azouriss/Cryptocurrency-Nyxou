@@ -4,4 +4,9 @@ version = "0.0.1"
 edition = "2024"
 
 [dependencies]
-sha2 = "0.10"
+sha3= "0.10"
+pqcrypto-dilithium = "0.5"
+
+[lib]
+name = "nyxou_lib"
+path = "src/lib.rs"
