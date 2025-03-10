@@ -67,7 +67,7 @@ L’Utilisateur s’engage à **indemniser et dégager de toute responsabilité 
 
 ## 9. Droit applicable et juridiction
 
-La présente licence est soumise au **droit [indiquer le pays ou l’État compétent]**.  
+La présente licence est soumise au **droit français**.  
 **Tout litige** relatif à l’interprétation ou à l’exécution de cette licence relèvera de la **compétence exclusive** des tribunaux de [indiquer la juridiction compétente].
 
 ---
