@@ -11,7 +11,7 @@ use pqcrypto_dilithium::dilithium2;
 
 fn main() {
     // Initialiser la blockchain
-    let mut my_blockchain = Blockchain::new();
+    let mut my_blockchain = Blockchain::new(19_500_000);
 
     // Génération d'une paire de clés PQ
     let (public_key, secret_key) = dilithium2::keypair();
@@ -55,7 +55,7 @@ fn main() {
         0,
     );
 
-    my_blockchain.add_block(new_block);
+    my_blockchain.add_block(new_block, 50);
 
     // Exemple d'utilisation des autres modules
     consensus::pos::start_pos(); // Proof of Stake
